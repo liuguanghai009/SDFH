@@ -1,7 +1,5 @@
 function  DCSHexmples
-
-
-
+%
 net = vgg16;
 
 im = imread("D:/显著性示例图像/dam.jpeg");
@@ -26,18 +24,27 @@ X = activations(net, img_resize,'pool5', 'OutputAs',  'channels');
 [hei,wid,~] = size(X);
 
 imdata = imresize(im,[hei wid]);
+%
+SN =12;
 
-% 
-%% 无法缺少，否则将降低3%精确度
-% 
- Fs = superpixels_show(imdata,12);
+[L,~] = imsegkmeans(imdata,SN);
 
-%%
+Fs = labeloverlay(imdata,L);
 
-Fs = imresize(im,[768 1024]); 
+F = imresize(Fs,[768 1024]);
+%
+rawData = imresize(im,[768 1024]);
+%
+figure;
 
- imwrite(Fs,['D:/结果图像/方向/','dam','.jpg']);
+subplot(1, 2, 1);
 
-imshow(Fs);
+imshow(rawData);
+%
+subplot(1, 2, 2);
+
+imagesc(F);
+
+axis off;
 
 end
