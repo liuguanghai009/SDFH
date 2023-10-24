@@ -71,7 +71,7 @@ parfor i=1:file_num
 
     X = activations(net, img_resize,layer, 'OutputAs',  'channels');
 
-    img_AAresize = imresize(img, [227 227]);%%望勿改动
+    img_AAresize = imresize(img, [224 224]);%%望勿改动
 
     Y = activations(net, img_AAresize,layer, 'OutputAs',  'channels');
 
